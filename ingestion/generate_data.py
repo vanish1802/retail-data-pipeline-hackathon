@@ -57,7 +57,39 @@ def generate_stores():
 
 
 def generate_products():
-    pass
+    products = [
+        {"product_id": "P001", "product_name": "Smartphone", "product_category": "Electronics", "unit_price": 15000.00, "current_stock_level": 50},
+        {"product_id": "P002", "product_name": "Laptop", "product_category": "Electronics", "unit_price": 55000.00, "current_stock_level": 30},
+        {"product_id": "P003", "product_name": "Headphones", "product_category": "Electronics", "unit_price": 2000.00, "current_stock_level": 100},
+
+        {"product_id": "P004", "product_name": "T-Shirt", "product_category": "Apparel", "unit_price": 800.00, "current_stock_level": 200},
+        {"product_id": "P005", "product_name": "Jeans", "product_category": "Apparel", "unit_price": 1800.00, "current_stock_level": 120},
+        {"product_id": "P006", "product_name": "Jacket", "product_category": "Apparel", "unit_price": 3500.00, "current_stock_level": 60},
+
+        {"product_id": "P007", "product_name": "Rice (5kg)", "product_category": "Grocery", "unit_price": 400.00, "current_stock_level": 300},
+        {"product_id": "P008", "product_name": "Cooking Oil (1L)", "product_category": "Grocery", "unit_price": 180.00, "current_stock_level": 250},
+        {"product_id": "P009", "product_name": "Sugar (1kg)", "product_category": "Grocery", "unit_price": 50.00, "current_stock_level": 500},
+        {"product_id": "P010", "product_name": "Tea Pack", "product_category": "Grocery", "unit_price": 120.00, "current_stock_level": 400},
+    ]
+
+    file_path = RAW_DATA_DIR / "products.csv"
+
+    with open(file_path, mode="w", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "product_id",
+                "product_name",
+                "product_category",
+                "unit_price",
+                "current_stock_level"
+            ]
+        )
+        writer.writeheader()
+        writer.writerows(products)
+
+    print(f"Generated {len(products)} records in {file_path}")
+
 
 def generate_customers():
     pass

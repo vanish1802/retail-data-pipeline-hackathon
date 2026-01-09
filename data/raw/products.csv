@@ -1,0 +1,11 @@
+product_id,product_name,product_category,unit_price,current_stock_level
+P001,Smartphone,Electronics,15000.0,50
+P002,Laptop,Electronics,55000.0,30
+P003,Headphones,Electronics,2000.0,100
+P004,T-Shirt,Apparel,800.0,200
+P005,Jeans,Apparel,1800.0,120
+P006,Jacket,Apparel,3500.0,60
+P007,Rice (5kg),Grocery,400.0,300
+P008,Cooking Oil (1L),Grocery,180.0,250
+P009,Sugar (1kg),Grocery,50.0,500
+P010,Tea Pack,Grocery,120.0,400
