@@ -1,0 +1,4 @@
+store_id,store_name,store_city,store_region,opening_date
+S001,HCL Mart Indore,Indore,Madhya Pradesh,2018-05-10
+S002,HCL Mart Pune,Pune,Maharashtra,2019-08-15
+S003,HCL Mart Bengaluru,Bengaluru,Karnataka,2021-01-20
