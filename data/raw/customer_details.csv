@@ -1,0 +1,6 @@
+customer_id,first_name,email,loyalty_status,total_loyalty_points,last_purchase_date,segment_id
+C001,Amit,amit@example.com,Gold,1200,2026-01-04,
+C002,Neha,neha@example.com,Silver,600,2025-12-28,
+C003,Ravi,ravi@example.com,Bronze,150,2025-11-05,
+C004,Pooja,pooja@example.com,Bronze,300,2025-10-11,
+C005,Karan,karan@example.com,Gold,2000,2026-01-07,

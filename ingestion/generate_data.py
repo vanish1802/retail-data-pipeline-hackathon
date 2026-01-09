@@ -92,7 +92,76 @@ def generate_products():
 
 
 def generate_customers():
-    pass
+    today = datetime.today().date()
+
+    customers = [
+        {
+            "customer_id": "C001",
+            "first_name": "Amit",
+            "email": "amit@example.com",
+            "loyalty_status": "Gold",
+            "total_loyalty_points": 1200,
+            "last_purchase_date": today - timedelta(days=5),
+            "segment_id": ""
+        },
+        {
+            "customer_id": "C002",
+            "first_name": "Neha",
+            "email": "neha@example.com",
+            "loyalty_status": "Silver",
+            "total_loyalty_points": 600,
+            "last_purchase_date": today - timedelta(days=12),
+            "segment_id": ""
+        },
+        {
+            "customer_id": "C003",
+            "first_name": "Ravi",
+            "email": "ravi@example.com",
+            "loyalty_status": "Bronze",
+            "total_loyalty_points": 150,
+            "last_purchase_date": today - timedelta(days=65),
+            "segment_id": ""
+        },
+        {
+            "customer_id": "C004",
+            "first_name": "Pooja",
+            "email": "pooja@example.com",
+            "loyalty_status": "Bronze",
+            "total_loyalty_points": 300,
+            "last_purchase_date": today - timedelta(days=90),
+            "segment_id": ""
+        },
+        {
+            "customer_id": "C005",
+            "first_name": "Karan",
+            "email": "karan@example.com",
+            "loyalty_status": "Gold",
+            "total_loyalty_points": 2000,
+            "last_purchase_date": today - timedelta(days=2),
+            "segment_id": ""
+        },
+    ]
+
+    file_path = RAW_DATA_DIR / "customer_details.csv"
+
+    with open(file_path, mode="w", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "customer_id",
+                "first_name",
+                "email",
+                "loyalty_status",
+                "total_loyalty_points",
+                "last_purchase_date",
+                "segment_id"
+            ]
+        )
+        writer.writeheader()
+        writer.writerows(customers)
+
+    print(f"Generated {len(customers)} records in {file_path}")
+
 
 def generate_promotions():
     pass
