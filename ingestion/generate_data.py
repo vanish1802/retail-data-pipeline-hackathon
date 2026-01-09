@@ -164,13 +164,189 @@ def generate_customers():
 
 
 def generate_promotions():
-    pass
+    today = datetime.today().date()
+
+    promotions = [
+        {
+            "promotion_id": "PR001",
+            "promotion_name": "Electronics New Year Sale",
+            "start_date": today - timedelta(days=10),
+            "end_date": today + timedelta(days=10),
+            "discount_percentage": 0.10,
+            "applicable_category": "Electronics"
+        },
+        {
+            "promotion_id": "PR002",
+            "promotion_name": "Apparel Clearance",
+            "start_date": today - timedelta(days=20),
+            "end_date": today - timedelta(days=1),
+            "discount_percentage": 0.20,
+            "applicable_category": "Apparel"
+        },
+        {
+            "promotion_id": "PR003",
+            "promotion_name": "Grocery Weekend Offer",
+            "start_date": today - timedelta(days=5),
+            "end_date": today + timedelta(days=5),
+            "discount_percentage": 0.05,
+            "applicable_category": "Grocery"
+        }
+    ]
+
+    file_path = RAW_DATA_DIR / "promotion_details.csv"
+
+    with open(file_path, mode="w", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "promotion_id",
+                "promotion_name",
+                "start_date",
+                "end_date",
+                "discount_percentage",
+                "applicable_category"
+            ]
+        )
+        writer.writeheader()
+        writer.writerows(promotions)
+
+    print(f"Generated {len(promotions)} records in {file_path}")
+
 
 def generate_loyalty_rules():
-    pass
+    rules = [
+        {
+            "rule_id": 1,
+            "rule_name": "Standard Earning",
+            "points_per_unit_spend": 1.0,
+            "min_spend_threshold": 0.0,
+            "bonus_points": 0
+        },
+        {
+            "rule_id": 2,
+            "rule_name": "High Value Bonus",
+            "points_per_unit_spend": 1.0,
+            "min_spend_threshold": 5000.0,
+            "bonus_points": 50
+        }
+    ]
+
+    file_path = RAW_DATA_DIR / "loyalty_rules.csv"
+
+    with open(file_path, mode="w", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "rule_id",
+                "rule_name",
+                "points_per_unit_spend",
+                "min_spend_threshold",
+                "bonus_points"
+            ]
+        )
+        writer.writeheader()
+        writer.writerows(rules)
+
+    print(f"Generated {len(rules)} records in {file_path}")
+
 
 def generate_sales_data():
-    pass
+    headers = []
+    line_items = []
+
+    transaction_counter = 1
+    line_item_counter = 1
+    today = datetime.today()
+
+    store_ids = ["S001", "S002", "S003"]
+    customer_ids = ["C001", "C002", "C003", "C004", "C005"]
+    product_ids = ["P001", "P002", "P003", "P004", "P005", "P006", "P007", "P008", "P009", "P010"]
+    promotion_ids = ["PR001", "PR002", "PR003", None]
+
+    for day in range(7):
+        transaction_date = today - timedelta(days=day)
+
+        for _ in range(3):  # 3 transactions per day
+            transaction_id = f"T{transaction_counter:04d}"
+            transaction_counter += 1
+
+            store_id = random.choice(store_ids)
+            customer_id = random.choice(customer_ids)
+
+            num_items = random.randint(1, 3)
+            total_amount = 0
+
+            for _ in range(num_items):
+                product_id = random.choice(product_ids)
+                quantity = random.randint(1, 3)
+                unit_price = random.randint(50, 5000)
+                amount = unit_price * quantity
+
+                # Inject anomaly: negative amount
+                if random.random() < 0.05:
+                    amount = -amount
+
+                promotion_id = random.choice(promotion_ids)
+
+                line_items.append({
+                    "line_item_id": line_item_counter,
+                    "transaction_id": transaction_id,
+                    "product_id": product_id if random.random() > 0.05 else "",
+                    "promotion_id": promotion_id,
+                    "quantity": quantity,
+                    "line_item_amount": amount
+                })
+
+                line_item_counter += 1
+                total_amount += amount
+
+            # Inject anomaly: wrong total
+            if random.random() < 0.1:
+                total_amount += random.randint(100, 500)
+
+            headers.append({
+                "transaction_id": transaction_id,
+                "customer_id": customer_id,
+                "store_id": store_id if random.random() > 0.05 else "INVALID",
+                "transaction_date": transaction_date,
+                "total_amount": round(total_amount, 2)
+            })
+
+    # Write header CSV
+    header_path = RAW_DATA_DIR / "store_sales_header.csv"
+    with open(header_path, mode="w", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "transaction_id",
+                "customer_id",
+                "store_id",
+                "transaction_date",
+                "total_amount"
+            ]
+        )
+        writer.writeheader()
+        writer.writerows(headers)
+
+    # Write line items CSV
+    line_item_path = RAW_DATA_DIR / "store_sales_line_items.csv"
+    with open(line_item_path, mode="w", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "line_item_id",
+                "transaction_id",
+                "product_id",
+                "promotion_id",
+                "quantity",
+                "line_item_amount"
+            ]
+        )
+        writer.writeheader()
+        writer.writerows(line_items)
+
+    print(f"Generated {len(headers)} transactions and {len(line_items)} line items")
+
 
 if __name__ == "__main__":
     generate_stores()

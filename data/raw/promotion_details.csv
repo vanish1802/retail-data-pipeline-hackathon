@@ -1,0 +1,4 @@
+promotion_id,promotion_name,start_date,end_date,discount_percentage,applicable_category
+PR001,Electronics New Year Sale,2025-12-30,2026-01-19,0.1,Electronics
+PR002,Apparel Clearance,2025-12-20,2026-01-08,0.2,Apparel
+PR003,Grocery Weekend Offer,2026-01-04,2026-01-14,0.05,Grocery
